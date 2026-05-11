@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { use, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { useAutosave, useSubmitAttempt } from "../../../lib/attempt-mutations";
@@ -17,14 +17,14 @@ import Timer from "../../../components/attempt/timer";
 import { Button } from "../../../components/ui/button";
 
 type Props = {
-  params: {
+  params: Promise<{
     attemptId: string;
-  };
+  }>;
 };
 
 export default function AttemptRunnerPage({ params }: Props) {
   const router = useRouter();
-  const attemptId = params.attemptId;
+  const { attemptId } = use(params);
   const {
     attemptId: storedAttemptId,
     examId,

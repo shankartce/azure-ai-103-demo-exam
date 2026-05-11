@@ -1,5 +1,6 @@
 "use client";
 
+import { use } from "react";
 import Link from "next/link";
 
 import { useAttemptResult, useExamQuestions } from "../../../../lib/attempt-queries";
@@ -7,9 +8,10 @@ import { loadAttempt } from "../../../../lib/storage";
 import QuestionBreakdown from "../../../../components/result/question-breakdown";
 import { Card, CardContent, CardHeader, CardTitle } from "../../../../components/ui/card";
 
-export default function AttemptResultPage({ params }: { params: { attemptId: string } }) {
-  const { data, isLoading, isError } = useAttemptResult(params.attemptId);
-  const stored = loadAttempt(params.attemptId);
+export default function AttemptResultPage({ params }: { params: Promise<{ attemptId: string }> }) {
+  const { attemptId } = use(params);
+  const { data, isLoading, isError } = useAttemptResult(attemptId);
+  const stored = loadAttempt(attemptId);
   const { data: questionData } = useExamQuestions(stored?.examId ?? null);
   const questionMap = new Map(
     (questionData?.items ?? []).map((question) => [question.id, question])

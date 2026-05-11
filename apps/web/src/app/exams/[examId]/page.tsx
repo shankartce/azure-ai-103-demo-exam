@@ -1,14 +1,16 @@
 "use client";
 
+import { use } from "react";
 import { useRouter } from "next/navigation";
 
 import { Button } from "../../../components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../../components/ui/card";
 import { useExam } from "../../../lib/exam-queries";
 
-export default function ExamDetailPage({ params }: { params: { examId: string } }) {
+export default function ExamDetailPage({ params }: { params: Promise<{ examId: string }> }) {
+  const { examId } = use(params);
   const router = useRouter();
-  const { data, isLoading, isError } = useExam(params.examId);
+  const { data, isLoading, isError } = useExam(examId);
   const exam = data?.exam;
 
   return (
