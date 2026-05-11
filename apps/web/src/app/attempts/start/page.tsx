@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import { useStartAttempt } from "../../../lib/attempt-mutations";
 import { storeAttempt } from "../../../lib/storage";
 import { useAttemptStore } from "../../../stores/attempt-store";
 
-export default function AttemptStartPage() {
+function AttemptStartContent() {
   const router = useRouter();
   const params = useSearchParams();
   const examId = params.get("examId");
@@ -51,5 +51,17 @@ export default function AttemptStartPage() {
     <div className="min-h-screen flex items-center justify-center px-6">
       <div className="text-sm text-[var(--muted)]">Starting your attempt...</div>
     </div>
+  );
+}
+
+export default function AttemptStartPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center px-6">
+        <div className="text-sm text-[var(--muted)]">Loading...</div>
+      </div>
+    }>
+      <AttemptStartContent />
+    </Suspense>
   );
 }
