@@ -13,6 +13,7 @@ if str(API_ROOT) not in sys.path:
 
 from src.core.settings import get_settings
 from src.db.base import Base
+import src.models  # noqa: F401
 
 # this is the Alembic Config object, which provides access to the values within the .ini file.
 config = context.config

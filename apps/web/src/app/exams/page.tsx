@@ -1,60 +1,51 @@
-import Link from "next/link";
+"use client";
 
-// Mock data - will be replaced with API calls
-const mockExams = [
-  {
-    id: "1",
-    title: "Azure AI-102: Designing and Implementing an Azure AI Solution",
-    description: "Practice exam for the Azure AI Engineer Associate certification",
-    questionCount: 50,
-    durationMinutes: 120,
-  },
-];
+import { useRouter } from "next/navigation";
+
+import { Button } from "../../components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../components/ui/card";
+import { useExams } from "../../lib/exam-queries";
 
 export default function ExamsPage() {
+  const router = useRouter();
+  const { data, isLoading, isError } = useExams();
+
   return (
-    <div className="min-h-screen">
-      <header className="border-b">
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <Link href="/" className="text-xl font-semibold">
-            Azure AI Practice
-          </Link>
-          <nav className="flex gap-4">
-            <Link href="/login" className="px-4 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800">
-              Login
-            </Link>
-          </nav>
-        </div>
-      </header>
+    <div className="min-h-screen px-6 py-12">
+      <div className="mx-auto flex w-full max-w-5xl flex-col gap-8">
+        <header className="flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <p className="text-sm uppercase tracking-[0.3em] text-[var(--muted)]">
+              Assessments
+            </p>
+            <h1 className="text-3xl font-semibold">Choose an exam</h1>
+          </div>
+          <Button variant="secondary" onClick={() => router.push("/dashboard")}>
+            Back to dashboard
+          </Button>
+        </header>
 
-      <main className="container mx-auto px-4 py-8">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-2">Practice Exams</h1>
-          <p className="text-gray-600 dark:text-gray-400">
-            Choose an exam to start your practice session
-          </p>
-        </div>
+        {isLoading && <p className="text-sm text-[var(--muted)]">Loading exams...</p>}
+        {isError && <p className="text-sm text-red-600">Unable to load exams.</p>}
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {mockExams.map((exam) => (
-            <Link
-              key={exam.id}
-              href={`/exams/${exam.id}`}
-              className="block p-6 border rounded-lg hover:shadow-lg transition-shadow dark:border-gray-700"
-            >
-              <h2 className="text-xl font-semibold mb-2">{exam.title}</h2>
-              <p className="text-gray-600 dark:text-gray-400 mb-4">
-                {exam.description}
-              </p>
-              <div className="flex gap-4 text-sm text-gray-500 dark:text-gray-500">
-                <span>{exam.questionCount} questions</span>
-                <span>•</span>
-                <span>{exam.durationMinutes} minutes</span>
-              </div>
-            </Link>
+        <div className="grid gap-6 md:grid-cols-2">
+          {data?.items.map((exam) => (
+            <Card key={exam.id} className="flex h-full flex-col">
+              <CardHeader>
+                <CardTitle>{exam.title}</CardTitle>
+                <CardDescription>{exam.description ?? "Timed practice exam"}</CardDescription>
+              </CardHeader>
+              <CardContent className="mt-auto flex flex-col gap-4">
+                <div className="flex flex-wrap gap-4 text-sm text-[var(--muted)]">
+                  <span>{Math.round(exam.durationSeconds / 60)} min</span>
+                  <span>{exam.questionCount} questions</span>
+                </div>
+                <Button onClick={() => router.push(`/exams/${exam.id}`)}>Start</Button>
+              </CardContent>
+            </Card>
           ))}
         </div>
-      </main>
+      </div>
     </div>
   );
 }

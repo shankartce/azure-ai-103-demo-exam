@@ -1,96 +1,79 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+
+import { Button } from "../../../components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../../components/ui/card";
+import { useSignup } from "../../../lib/auth-queries";
+import { ApiClientError } from "../../../lib/api-client";
 
 export default function SignupPage() {
+  const router = useRouter();
+  const signup = useSignup();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (password !== confirmPassword) {
-      alert("Passwords don't match");
-      return;
+  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    try {
+      await signup.mutateAsync({ email, password });
+      router.push("/login");
+    } catch {
+      // Error state is surfaced via the mutation status.
     }
-    // TODO: Implement signup logic
-    console.log("Signup:", { email, password });
   };
 
+  const errorMessage =
+    signup.error instanceof ApiClientError
+      ? signup.error.message
+      : "Signup failed. Try a different email.";
+
   return (
-    <div className="min-h-screen flex items-center justify-center px-4">
-      <div className="w-full max-w-md space-y-8">
-        <div className="text-center">
-          <h1 className="text-3xl font-bold">Create your account</h1>
-          <p className="mt-2 text-gray-600 dark:text-gray-400">
-            Start practicing for your Azure AI certification
-          </p>
-        </div>
-
-        <form onSubmit={handleSubmit} className="mt-8 space-y-6">
-          <div className="space-y-4">
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium mb-2">
-                Email
-              </label>
+    <div className="min-h-screen flex items-center justify-center px-6">
+      <Card className="w-full max-w-md">
+        <CardHeader>
+          <CardTitle>Create your learner profile</CardTitle>
+          <CardDescription>Get instant feedback on every attempt.</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form className="space-y-4" onSubmit={onSubmit}>
+            <label className="grid gap-2 text-sm font-medium">
+              Email
               <input
-                id="email"
                 type="email"
-                required
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700"
+                onChange={(event) => setEmail(event.target.value)}
+                className="h-11 rounded-xl border border-[var(--surface-strong)] bg-white/60 px-4 text-sm text-[var(--page-fg)] shadow-sm focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
                 placeholder="you@example.com"
-              />
-            </div>
-
-            <div>
-              <label htmlFor="password" className="block text-sm font-medium mb-2">
-                Password
-              </label>
-              <input
-                id="password"
-                type="password"
                 required
+              />
+            </label>
+            <label className="grid gap-2 text-sm font-medium">
+              Password
+              <input
+                type="password"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700"
-                placeholder="••••••••"
-              />
-            </div>
-
-            <div>
-              <label htmlFor="confirmPassword" className="block text-sm font-medium mb-2">
-                Confirm Password
-              </label>
-              <input
-                id="confirmPassword"
-                type="password"
+                onChange={(event) => setPassword(event.target.value)}
+                className="h-11 rounded-xl border border-[var(--surface-strong)] bg-white/60 px-4 text-sm text-[var(--page-fg)] shadow-sm focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
+                placeholder="Create a password"
                 required
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700"
-                placeholder="••••••••"
               />
-            </div>
-          </div>
-
-          <button
-            type="submit"
-            className="w-full py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium"
-          >
-            Create Account
-          </button>
-
-          <p className="text-center text-sm text-gray-600 dark:text-gray-400">
+            </label>
+            <Button type="submit" className="w-full" disabled={signup.isPending}>
+              {signup.isPending ? "Creating account..." : "Sign up"}
+            </Button>
+            {signup.isError && <p className="text-sm text-red-600">{errorMessage}</p>}
+          </form>
+          <p className="mt-4 text-sm text-[var(--muted)]">
             Already have an account?{" "}
-            <Link href="/login" className="text-blue-600 hover:underline">
-              Sign in
+            <Link className="text-[var(--accent)] hover:underline" href="/login">
+              Sign in instead
             </Link>
           </p>
-        </form>
-      </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }

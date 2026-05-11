@@ -1,76 +1,79 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+
+import { Button } from "../../../components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../../components/ui/card";
+import { useLogin } from "../../../lib/auth-queries";
+import { ApiClientError } from "../../../lib/api-client";
 
 export default function LoginPage() {
+  const router = useRouter();
+  const login = useLogin();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    // TODO: Implement login logic
-    console.log("Login:", { email, password });
+  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    try {
+      await login.mutateAsync({ email, password });
+      router.push("/dashboard");
+    } catch {
+      // Error state is surfaced via the mutation status.
+    }
   };
 
+  const errorMessage =
+    login.error instanceof ApiClientError
+      ? login.error.message
+      : "Login failed. Check your credentials.";
+
   return (
-    <div className="min-h-screen flex items-center justify-center px-4">
-      <div className="w-full max-w-md space-y-8">
-        <div className="text-center">
-          <h1 className="text-3xl font-bold">Welcome back</h1>
-          <p className="mt-2 text-gray-600 dark:text-gray-400">
-            Sign in to continue your practice
-          </p>
-        </div>
-
-        <form onSubmit={handleSubmit} className="mt-8 space-y-6">
-          <div className="space-y-4">
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium mb-2">
-                Email
-              </label>
+    <div className="min-h-screen flex items-center justify-center px-6">
+      <Card className="w-full max-w-md">
+        <CardHeader>
+          <CardTitle>Welcome back</CardTitle>
+          <CardDescription>Sign in to continue your AI-103 practice.</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form className="space-y-4" onSubmit={onSubmit}>
+            <label className="grid gap-2 text-sm font-medium">
+              Email
               <input
-                id="email"
                 type="email"
-                required
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700"
+                onChange={(event) => setEmail(event.target.value)}
+                className="h-11 rounded-xl border border-[var(--surface-strong)] bg-white/60 px-4 text-sm text-[var(--page-fg)] shadow-sm focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
                 placeholder="you@example.com"
-              />
-            </div>
-
-            <div>
-              <label htmlFor="password" className="block text-sm font-medium mb-2">
-                Password
-              </label>
-              <input
-                id="password"
-                type="password"
                 required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700"
-                placeholder="••••••••"
               />
-            </div>
-          </div>
-
-          <button
-            type="submit"
-            className="w-full py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium"
-          >
-            Sign In
-          </button>
-
-          <p className="text-center text-sm text-gray-600 dark:text-gray-400">
-            Don't have an account?{" "}
-            <Link href="/signup" className="text-blue-600 hover:underline">
-              Sign up
+            </label>
+            <label className="grid gap-2 text-sm font-medium">
+              Password
+              <input
+                type="password"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                className="h-11 rounded-xl border border-[var(--surface-strong)] bg-white/60 px-4 text-sm text-[var(--page-fg)] shadow-sm focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
+                placeholder="Enter your password"
+                required
+              />
+            </label>
+            <Button type="submit" className="w-full" disabled={login.isPending}>
+              {login.isPending ? "Signing in..." : "Sign in"}
+            </Button>
+            {login.isError && <p className="text-sm text-red-600">{errorMessage}</p>}
+          </form>
+          <p className="mt-4 text-sm text-[var(--muted)]">
+            New here?{" "}
+            <Link className="text-[var(--accent)] hover:underline" href="/signup">
+              Create an account
             </Link>
           </p>
-        </form>
-      </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }

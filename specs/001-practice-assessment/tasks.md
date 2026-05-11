@@ -63,14 +63,14 @@
 
 ### Web foundation
 
-- [ ] T025 Initialize Next.js 15 app shell in apps/web/src/app/layout.tsx
-- [ ] T026 [P] Configure TailwindCSS + globals in apps/web/src/styles/globals.css
-- [ ] T027 [P] Add ShadCN UI base components used by the app in apps/web/src/components/ui/button.tsx and apps/web/src/components/ui/card.tsx
-- [ ] T028 [P] Add theme toggle component in apps/web/src/components/theme-toggle.tsx
-- [ ] T029 [P] Add API client wrapper in apps/web/src/lib/api-client.ts
-- [ ] T030 [P] Add auth session helper (cookie-based) in apps/web/src/lib/auth.ts
-- [ ] T031 [P] Add route guard layout wrapper in apps/web/src/components/route-guard.tsx
-- [ ] T032 [P] Add Zustand store scaffold for attempt runner in apps/web/src/stores/attempt-store.ts
+- [X] T025 Initialize Next.js 15 app shell in apps/web/src/app/layout.tsx
+- [X] T026 [P] Configure TailwindCSS + globals in apps/web/src/styles/globals.css
+- [X] T027 [P] Add ShadCN UI base components used by the app in apps/web/src/components/ui/button.tsx and apps/web/src/components/ui/card.tsx
+- [X] T028 [P] Add theme toggle component in apps/web/src/components/theme-toggle.tsx
+- [X] T029 [P] Add API client wrapper in apps/web/src/lib/api-client.ts
+- [X] T030 [P] Add auth session helper (cookie-based) in apps/web/src/lib/auth.ts
+- [X] T031 [P] Add route guard layout wrapper in apps/web/src/components/route-guard.tsx
+- [X] T032 [P] Add Zustand store scaffold for attempt runner in apps/web/src/stores/attempt-store.ts
 
 **Checkpoint**: API runs locally, connects to Postgres, and Web renders a polished shell with dark mode.
 
@@ -84,66 +84,66 @@
 
 ### Tests for User Story 1 (REQUIRED)
 
-- [ ] T033 [P] [US1] Add API integration tests for signup/login/me in apps/api/tests/integration/test_auth.py
-- [ ] T034 [P] [US1] Add API integration tests for attempt start and one-active-attempt rule in apps/api/tests/integration/test_attempt_start.py
-- [ ] T035 [P] [US1] Add API integration tests for autosave responses and expiry behavior in apps/api/tests/integration/test_attempt_autosave.py
-- [ ] T036 [P] [US1] Add API integration tests for submit + deterministic scoring in apps/api/tests/integration/test_attempt_submit_and_score.py
-- [ ] T037 [P] [US1] Add Web E2E test: login → start exam → answer → submit → results in apps/web/tests/e2e/exam-runner.spec.ts
+- [X] T033 [P] [US1] Add API integration tests for signup/login/me in apps/api/tests/integration/test_auth.py
+- [X] T034 [P] [US1] Add API integration tests for attempt start and one-active-attempt rule in apps/api/tests/integration/test_attempt_start.py
+- [X] T035 [P] [US1] Add API integration tests for autosave responses and expiry behavior in apps/api/tests/integration/test_attempt_autosave.py
+- [X] T036 [P] [US1] Add API integration tests for submit + deterministic scoring in apps/api/tests/integration/test_attempt_submit_and_score.py
+- [X] T037 [P] [US1] Add Web E2E test: login → start exam → answer → submit → results in apps/web/tests/e2e/exam-runner.spec.ts
 
 ### Backend implementation (US1)
 
-- [ ] T038 [P] [US1] Implement SQLAlchemy User model in apps/api/src/models/user.py
-- [ ] T039 [P] [US1] Implement SQLAlchemy Exam model in apps/api/src/models/exam.py
-- [ ] T040 [P] [US1] Implement SQLAlchemy Question model in apps/api/src/models/question.py
-- [ ] T041 [P] [US1] Implement SQLAlchemy Option model in apps/api/src/models/option.py
-- [ ] T042 [P] [US1] Implement SQLAlchemy Attempt model in apps/api/src/models/attempt.py
-- [ ] T043 [P] [US1] Implement SQLAlchemy AttemptResponse model in apps/api/src/models/attempt_response.py
-- [ ] T044 [US1] Register model imports in apps/api/src/db/base.py (metadata discovery)
-- [ ] T045 [US1] Create Alembic migration for core tables in apps/api/alembic/versions/0002_core_tables.py
-- [ ] T046 [P] [US1] Add Pydantic schemas for auth/user in apps/api/src/schemas/auth.py
-- [ ] T047 [P] [US1] Add Pydantic schemas for exams/questions in apps/api/src/schemas/exams.py
-- [ ] T048 [P] [US1] Add Pydantic schemas for attempts/results in apps/api/src/schemas/attempts.py
-- [ ] T049 [P] [US1] Add UserRepository in apps/api/src/repositories/user_repository.py
-- [ ] T050 [P] [US1] Add ExamRepository in apps/api/src/repositories/exam_repository.py
-- [ ] T051 [P] [US1] Add QuestionRepository in apps/api/src/repositories/question_repository.py
-- [ ] T052 [P] [US1] Add AttemptRepository in apps/api/src/repositories/attempt_repository.py
-- [ ] T053 [P] [US1] Add AttemptResponseRepository in apps/api/src/repositories/attempt_response_repository.py
-- [ ] T054 [US1] Implement AuthService (signup/login/me) in apps/api/src/services/auth_service.py
-- [ ] T055 [US1] Implement ExamService (list/get) in apps/api/src/services/exam_service.py
-- [ ] T056 [US1] Implement AttemptService (start/autosave/submit/expire) in apps/api/src/services/attempt_service.py
-- [ ] T057 [US1] Implement deterministic scoring helper in apps/api/src/services/scoring.py
-- [ ] T058 [P] [US1] Implement auth router in apps/api/src/api/routers/auth.py
-- [ ] T059 [P] [US1] Implement exams router in apps/api/src/api/routers/exams.py
-- [ ] T060 [P] [US1] Implement questions router in apps/api/src/api/routers/questions.py
-- [ ] T061 [P] [US1] Implement attempts router in apps/api/src/api/routers/attempts.py
-- [ ] T062 [US1] Register all routers in apps/api/src/api/router.py
-- [ ] T063 [US1] Wire API router into FastAPI app in apps/api/src/main.py
-- [ ] T064 [P] [US1] Add demo seed script (exam + 20+ questions + admin user) in apps/api/src/db/seed_demo.py
-- [ ] T065 [US1] Add CLI entrypoint for seeding in apps/api/src/scripts/seed.py
+- [X] T038 [P] [US1] Implement SQLAlchemy User model in apps/api/src/models/user.py
+- [X] T039 [P] [US1] Implement SQLAlchemy Exam model in apps/api/src/models/exam.py
+- [X] T040 [P] [US1] Implement SQLAlchemy Question model in apps/api/src/models/question.py
+- [X] T041 [P] [US1] Implement SQLAlchemy Option model in apps/api/src/models/option.py
+- [X] T042 [P] [US1] Implement SQLAlchemy Attempt model in apps/api/src/models/attempt.py
+- [X] T043 [P] [US1] Implement SQLAlchemy AttemptResponse model in apps/api/src/models/attempt_response.py
+- [X] T044 [US1] Register model imports in apps/api/src/db/base.py (metadata discovery)
+- [X] T045 [US1] Create Alembic migration for core tables in apps/api/alembic/versions/0002_core_tables.py
+- [X] T046 [P] [US1] Add Pydantic schemas for auth/user in apps/api/src/schemas/auth.py
+- [X] T047 [P] [US1] Add Pydantic schemas for exams/questions in apps/api/src/schemas/exams.py
+- [X] T048 [P] [US1] Add Pydantic schemas for attempts/results in apps/api/src/schemas/attempts.py
+- [X] T049 [P] [US1] Add UserRepository in apps/api/src/repositories/user_repository.py
+- [X] T050 [P] [US1] Add ExamRepository in apps/api/src/repositories/exam_repository.py
+- [X] T051 [P] [US1] Add QuestionRepository in apps/api/src/repositories/question_repository.py
+- [X] T052 [P] [US1] Add AttemptRepository in apps/api/src/repositories/attempt_repository.py
+- [X] T053 [P] [US1] Add AttemptResponseRepository in apps/api/src/repositories/attempt_response_repository.py
+- [X] T054 [US1] Implement AuthService (signup/login/me) in apps/api/src/services/auth_service.py
+- [X] T055 [US1] Implement ExamService (list/get) in apps/api/src/services/exam_service.py
+- [X] T056 [US1] Implement AttemptService (start/autosave/submit/expire) in apps/api/src/services/attempt_service.py
+- [X] T057 [US1] Implement deterministic scoring helper in apps/api/src/services/scoring.py
+- [X] T058 [P] [US1] Implement auth router in apps/api/src/api/routers/auth.py
+- [X] T059 [P] [US1] Implement exams router in apps/api/src/api/routers/exams.py
+- [X] T060 [P] [US1] Implement questions router in apps/api/src/api/routers/questions.py
+- [X] T061 [P] [US1] Implement attempts router in apps/api/src/api/routers/attempts.py
+- [X] T062 [US1] Register all routers in apps/api/src/api/router.py
+- [X] T063 [US1] Wire API router into FastAPI app in apps/api/src/main.py
+- [X] T064 [P] [US1] Add demo seed script (exam + 20+ questions + admin user) in apps/api/src/db/seed_demo.py
+- [X] T065 [US1] Add CLI entrypoint for seeding in apps/api/src/scripts/seed.py
 
 ### Frontend implementation (US1)
 
-- [ ] T066 [P] [US1] Build login page in apps/web/src/app/(auth)/login/page.tsx
-- [ ] T067 [P] [US1] Build signup page in apps/web/src/app/(auth)/signup/page.tsx
-- [ ] T068 [P] [US1] Add auth React Query mutations in apps/web/src/lib/auth-queries.ts
-- [ ] T069 [P] [US1] Add protected dashboard page shell in apps/web/src/app/dashboard/page.tsx
-- [ ] T070 [P] [US1] Build exam list page in apps/web/src/app/exams/page.tsx
-- [ ] T071 [P] [US1] Build exam detail page in apps/web/src/app/exams/[examId]/page.tsx
-- [ ] T072 [P] [US1] Add exams queries in apps/web/src/lib/exam-queries.ts
-- [ ] T073 [P] [US1] Build attempt runner route in apps/web/src/app/attempts/[attemptId]/page.tsx
-- [ ] T074 [P] [US1] Implement Timer component in apps/web/src/components/attempt/timer.tsx
-- [ ] T075 [P] [US1] Implement QuestionCard component in apps/web/src/components/attempt/question-card.tsx
-- [ ] T076 [P] [US1] Implement OptionList component in apps/web/src/components/attempt/option-list.tsx
-- [ ] T077 [P] [US1] Implement QuestionPalette component in apps/web/src/components/attempt/question-palette.tsx
-- [ ] T078 [P] [US1] Implement ProgressBar component in apps/web/src/components/attempt/progress-bar.tsx
-- [ ] T079 [P] [US1] Implement MarkForReview toggle in apps/web/src/components/attempt/mark-for-review.tsx
-- [ ] T080 [US1] Implement attempt state orchestration (Zustand + React Query) in apps/web/src/stores/attempt-store.ts
-- [ ] T081 [P] [US1] Add autosave mutation hook in apps/web/src/lib/attempt-mutations.ts
-- [ ] T082 [US1] Add resume-on-refresh behavior in apps/web/src/app/attempts/[attemptId]/page.tsx
-- [ ] T083 [P] [US1] Add submission confirmation modal in apps/web/src/components/attempt/submit-modal.tsx
-- [ ] T084 [US1] Wire submission flow to API in apps/web/src/lib/attempt-mutations.ts
-- [ ] T085 [US1] Build results page in apps/web/src/app/attempts/[attemptId]/result/page.tsx
-- [ ] T086 [US1] Render deterministic per-question breakdown in apps/web/src/components/result/question-breakdown.tsx
+- [X] T066 [P] [US1] Build login page in apps/web/src/app/(auth)/login/page.tsx
+- [X] T067 [P] [US1] Build signup page in apps/web/src/app/(auth)/signup/page.tsx
+- [X] T068 [P] [US1] Add auth React Query mutations in apps/web/src/lib/auth-queries.ts
+- [X] T069 [P] [US1] Add protected dashboard page shell in apps/web/src/app/dashboard/page.tsx
+- [X] T070 [P] [US1] Build exam list page in apps/web/src/app/exams/page.tsx
+- [X] T071 [P] [US1] Build exam detail page in apps/web/src/app/exams/[examId]/page.tsx
+- [X] T072 [P] [US1] Add exams queries in apps/web/src/lib/exam-queries.ts
+- [X] T073 [P] [US1] Build attempt runner route in apps/web/src/app/attempts/[attemptId]/page.tsx
+- [X] T074 [P] [US1] Implement Timer component in apps/web/src/components/attempt/timer.tsx
+- [X] T075 [P] [US1] Implement QuestionCard component in apps/web/src/components/attempt/question-card.tsx
+- [X] T076 [P] [US1] Implement OptionList component in apps/web/src/components/attempt/option-list.tsx
+- [X] T077 [P] [US1] Implement QuestionPalette component in apps/web/src/components/attempt/question-palette.tsx
+- [X] T078 [P] [US1] Implement ProgressBar component in apps/web/src/components/attempt/progress-bar.tsx
+- [X] T079 [P] [US1] Implement MarkForReview toggle in apps/web/src/components/attempt/mark-for-review.tsx
+- [X] T080 [US1] Implement attempt state orchestration (Zustand + React Query) in apps/web/src/stores/attempt-store.ts
+- [X] T081 [P] [US1] Add autosave mutation hook in apps/web/src/lib/attempt-mutations.ts
+- [X] T082 [US1] Add resume-on-refresh behavior in apps/web/src/app/attempts/[attemptId]/page.tsx
+- [X] T083 [P] [US1] Add submission confirmation modal in apps/web/src/components/attempt/submit-modal.tsx
+- [X] T084 [US1] Wire submission flow to API in apps/web/src/lib/attempt-mutations.ts
+- [X] T085 [US1] Build results page in apps/web/src/app/attempts/[attemptId]/result/page.tsx
+- [X] T086 [US1] Render deterministic per-question breakdown in apps/web/src/components/result/question-breakdown.tsx
 
 **Checkpoint**: US1 demo-ready MVP (auth + exam runner + submit + deterministic results).
 

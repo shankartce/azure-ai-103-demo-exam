@@ -12,3 +12,6 @@
 **/*.log
 .env
 .env.*
+Dockerfile*
+.dockerignore
+coverage/

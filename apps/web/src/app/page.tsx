@@ -2,45 +2,69 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="min-h-screen flex flex-col">
-      <header className="border-b">
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <h1 className="text-xl font-semibold">Azure AI Practice</h1>
-          <nav className="flex gap-4">
-            <Link href="/login" className="px-4 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800">
+    <div className="min-h-screen px-6 py-16">
+      <div className="mx-auto flex w-full max-w-6xl flex-col gap-16">
+        <header className="flex flex-wrap items-center justify-between gap-6">
+          <div>
+            <p className="text-xs uppercase tracking-[0.4em] text-[var(--muted)]">
+              Azure AI Practice
+            </p>
+            <h1 className="text-3xl font-semibold">Prep like it is exam day.</h1>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <Link
+              href="/login"
+              className="inline-flex items-center justify-center rounded-full px-5 py-2 text-sm font-semibold text-[var(--page-fg)] hover:bg-[var(--surface-strong)]"
+            >
               Login
             </Link>
-            <Link href="/signup" className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
-              Sign Up
-            </Link>
-          </nav>
-        </div>
-      </header>
-
-      <main className="flex-1 flex items-center justify-center px-4">
-        <div className="max-w-2xl text-center space-y-6">
-          <h2 className="text-4xl font-bold">
-            Master Azure AI Certification
-          </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-400">
-            Practice with realistic timed exams, get instant feedback, and track your progress with AI-powered insights.
-          </p>
-          <div className="flex gap-4 justify-center pt-4">
-            <Link href="/signup" className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium">
-              Get Started
-            </Link>
-            <Link href="/exams" className="px-6 py-3 border rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 font-medium">
-              Browse Exams
+            <Link
+              href="/signup"
+              className="inline-flex items-center justify-center rounded-full bg-[var(--accent)] px-5 py-2 text-sm font-semibold text-white shadow-[var(--shadow)] hover:bg-[var(--accent-strong)]"
+            >
+              Sign up
             </Link>
           </div>
-        </div>
-      </main>
+        </header>
 
-      <footer className="border-t py-6">
-        <div className="container mx-auto px-4 text-center text-sm text-gray-600 dark:text-gray-400">
-          Azure AI Certification Practice Platform - MVP
-        </div>
-      </footer>
+        <main className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr]">
+          <div className="space-y-6">
+            <h2 className="text-5xl font-semibold leading-tight">
+              Master Azure AI with timed, high-signal assessments.
+            </h2>
+            <p className="text-lg text-[var(--muted)]">
+              Practice against realistic exam pacing, get deterministic scoring, and
+              review every question with clear insights.
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <Link
+                href="/signup"
+                className="inline-flex items-center justify-center rounded-full bg-[var(--accent)] px-7 py-3 text-base font-semibold text-white shadow-[var(--shadow)] hover:bg-[var(--accent-strong)]"
+              >
+                Get started
+              </Link>
+              <Link
+                href="/exams"
+                className="inline-flex items-center justify-center rounded-full border border-[var(--surface-strong)] px-7 py-3 text-base font-semibold text-[var(--page-fg)] hover:bg-[var(--surface)]"
+              >
+                Browse exams
+              </Link>
+            </div>
+          </div>
+
+          <div className="rounded-[32px] border border-[var(--surface-strong)] bg-[var(--surface)] p-8 shadow-[var(--shadow)]">
+            <p className="text-sm uppercase tracking-[0.3em] text-[var(--muted)]">
+              What you get
+            </p>
+            <ul className="mt-4 space-y-4 text-sm">
+              <li>Timed exam runner with autosave and review flags.</li>
+              <li>Deterministic scoring with per-question breakdowns.</li>
+              <li>AI-assisted explanations (coming next phase).</li>
+              <li>Analytics that spotlight weak topics.</li>
+            </ul>
+          </div>
+        </main>
+      </div>
     </div>
   );
 }
