@@ -17,19 +17,14 @@ import Timer from "../../../components/attempt/timer";
 import { Button } from "../../../components/ui/button";
 
 type Props = {
-  params: Promise<{
+  params: {
     attemptId: string;
-  }>;
+  };
 };
 
 export default function AttemptRunnerPage({ params }: Props) {
   const router = useRouter();
-  const [attemptId, setAttemptId] = useState("");
-  useEffect(() => {
-  params.then((resolved) => {
-    setAttemptId(resolved.attemptId);
-  });
-}, [params]);
+  const attemptId = params.attemptId;
   const {
     attemptId: storedAttemptId,
     examId,
