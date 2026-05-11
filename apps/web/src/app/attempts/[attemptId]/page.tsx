@@ -16,9 +16,20 @@ import SubmitModal from "../../../components/attempt/submit-modal";
 import Timer from "../../../components/attempt/timer";
 import { Button } from "../../../components/ui/button";
 
-export default function AttemptRunnerPage({ params }: { params: { attemptId: string } }) {
+type Props = {
+  params: Promise<{
+    attemptId: string;
+  }>;
+};
+
+export default function AttemptRunnerPage({ params }: Props) {
   const router = useRouter();
-  const attemptId = params.attemptId;
+  const [attemptId, setAttemptId] = useState("");
+  useEffect(() => {
+  params.then((resolved) => {
+    setAttemptId(resolved.attemptId);
+  });
+}, [params]);
   const {
     attemptId: storedAttemptId,
     examId,
@@ -41,6 +52,7 @@ export default function AttemptRunnerPage({ params }: { params: { attemptId: str
     if (storedAttemptId === attemptId && examId) {
       return;
     }
+
 
     const stored = loadAttempt(attemptId);
     if (stored) {
