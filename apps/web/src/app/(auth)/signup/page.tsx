@@ -45,7 +45,7 @@ export default function SignupPage() {
                 type="email"
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
-                className="h-11 rounded-xl border border-[var(--surface-strong)] bg-white/60 px-4 text-sm text-[var(--page-fg)] shadow-sm focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
+                className="h-11 rounded-xl border border-[var(--border)] bg-[var(--input-bg)] px-4 text-sm text-[var(--text-strong)] shadow-sm focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
                 placeholder="you@example.com"
                 required
               />
@@ -56,7 +56,7 @@ export default function SignupPage() {
                 type="password"
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
-                className="h-11 rounded-xl border border-[var(--surface-strong)] bg-white/60 px-4 text-sm text-[var(--page-fg)] shadow-sm focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
+                className="h-11 rounded-xl border border-[var(--border)] bg-[var(--input-bg)] px-4 text-sm text-[var(--text-strong)] shadow-sm focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
                 placeholder="Create a password"
                 required
               />

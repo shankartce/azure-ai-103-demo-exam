@@ -11,6 +11,7 @@ class Settings(BaseSettings):
     database_url: str
     jwt_secret: str
     auto_create_tables: bool = True
+    auto_seed_demo: bool = True
     # Comma-separated list in env, e.g. "http://localhost:3000,http://localhost:5173"
     cors_origins: str = ""
 

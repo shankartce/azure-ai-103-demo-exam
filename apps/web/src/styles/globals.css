@@ -1,27 +1,37 @@
 @import "tailwindcss";
 
 :root {
-  --page-bg: #f6f1e6;
-  --page-fg: #1d1914;
-  --surface: #fff6ea;
-  --surface-strong: #f3e3cf;
-  --accent: #d4572c;
-  --accent-strong: #a54222;
-  --muted: #6b6156;
-  --ring: #d4572c;
-  --shadow: 0 30px 60px -35px rgba(69, 45, 30, 0.55);
+  --page-bg: #f7efe4;
+  --page-fg: #1a1713;
+  --surface: #fff7ee;
+  --surface-strong: #f1e1cc;
+  --surface-muted: #efe2d2;
+  --border: rgba(27, 20, 16, 0.1);
+  --accent: #d14f2a;
+  --accent-strong: #a63a20;
+  --muted: #5f564c;
+  --text-strong: #14110e;
+  --text-soft: #5f564c;
+  --ring: #d14f2a;
+  --input-bg: rgba(255, 255, 255, 0.8);
+  --shadow: 0 25px 60px -40px rgba(49, 33, 22, 0.55);
 }
 
 html[data-theme="dark"] {
-  --page-bg: #12100d;
-  --page-fg: #f4efe9;
-  --surface: #1f1a16;
-  --surface-strong: #2a241f;
+  --page-bg: #0f0d0b;
+  --page-fg: #f5efe8;
+  --surface: #1c1713;
+  --surface-strong: #2a231d;
+  --surface-muted: #2f2721;
+  --border: rgba(244, 238, 230, 0.12);
   --accent: #ff8c55;
   --accent-strong: #ff6b2f;
-  --muted: #b1a69a;
+  --muted: #c7b8aa;
+  --text-strong: #f5efe8;
+  --text-soft: #c7b8aa;
   --ring: #ff8c55;
-  --shadow: 0 30px 60px -35px rgba(0, 0, 0, 0.65);
+  --input-bg: rgba(31, 26, 22, 0.9);
+  --shadow: 0 30px 70px -45px rgba(0, 0, 0, 0.7);
 }
 
 @theme inline {
@@ -41,11 +51,19 @@ body {
   color: var(--page-fg);
   font-family: var(--font-space-grotesk), "IBM Plex Sans", "Segoe UI", sans-serif;
   background-image:
-    radial-gradient(circle at 12% 18%, rgba(255, 198, 123, 0.28), transparent 35%),
-    radial-gradient(circle at 82% 12%, rgba(255, 131, 92, 0.22), transparent 40%),
-    radial-gradient(circle at 18% 82%, rgba(128, 196, 215, 0.22), transparent 42%),
-    linear-gradient(120deg, rgba(255, 255, 255, 0.65), rgba(255, 255, 255, 0));
+    radial-gradient(circle at 12% 18%, rgba(255, 195, 124, 0.24), transparent 35%),
+    radial-gradient(circle at 82% 12%, rgba(255, 122, 96, 0.2), transparent 40%),
+    radial-gradient(circle at 18% 82%, rgba(121, 196, 218, 0.18), transparent 42%),
+    linear-gradient(120deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0));
   background-attachment: fixed;
+}
+
+html[data-theme="dark"] body {
+  background-image:
+    radial-gradient(circle at 14% 16%, rgba(255, 136, 92, 0.16), transparent 38%),
+    radial-gradient(circle at 84% 18%, rgba(122, 192, 216, 0.14), transparent 42%),
+    radial-gradient(circle at 18% 78%, rgba(255, 188, 130, 0.12), transparent 42%),
+    linear-gradient(120deg, rgba(17, 15, 13, 0.85), rgba(17, 15, 13, 0));
 }
 
 ::selection {

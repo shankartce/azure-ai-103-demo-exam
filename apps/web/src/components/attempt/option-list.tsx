@@ -25,8 +25,8 @@ export default function OptionList({
             className={cn(
               "flex cursor-pointer items-center gap-3 rounded-2xl border px-4 py-3 text-sm transition",
               isSelected
-                ? "border-[var(--accent)] bg-[var(--surface)] shadow-[var(--shadow)]"
-                : "border-[var(--surface-strong)] bg-white/50 hover:border-[var(--accent)]"
+                ? "border-[var(--accent)] bg-[var(--surface)] text-[var(--text-strong)] shadow-[var(--shadow)]"
+                : "border-[var(--border)] bg-[var(--input-bg)] text-[var(--text-strong)] hover:border-[var(--accent)]"
             )}
           >
             <input

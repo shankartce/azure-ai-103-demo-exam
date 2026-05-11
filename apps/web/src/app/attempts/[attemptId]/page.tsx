@@ -123,7 +123,7 @@ export default function AttemptRunnerPage({ params }: { params: { attemptId: str
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-8">
         <header className="flex flex-wrap items-center justify-between gap-4">
           <div>
-            <p className="text-xs uppercase tracking-[0.3em] text-[var(--muted)]">Live attempt</p>
+            <p className="text-xs uppercase tracking-[0.3em] text-[var(--text-soft)]">Live attempt</p>
             <h1 className="text-2xl font-semibold">Stay focused and finish strong.</h1>
           </div>
           <Timer expiresAt={expiresAt} onExpire={() => setIsSubmitOpen(true)} />

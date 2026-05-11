@@ -12,10 +12,10 @@ const variantClasses: Record<ButtonVariant, string> = {
   default:
     "bg-[var(--accent)] text-white shadow-[var(--shadow)] hover:bg-[var(--accent-strong)]",
   secondary:
-    "bg-[var(--surface-strong)] text-[var(--page-fg)] hover:bg-[var(--surface)]",
+    "bg-[var(--surface-strong)] text-[var(--text-strong)] hover:bg-[var(--surface)]",
   outline:
-    "border border-[var(--surface-strong)] text-[var(--page-fg)] hover:bg-[var(--surface)]",
-  ghost: "text-[var(--page-fg)] hover:bg-[var(--surface-strong)]",
+    "border border-[var(--border)] text-[var(--text-strong)] hover:bg-[var(--surface)]",
+  ghost: "text-[var(--text-strong)] hover:bg-[var(--surface-strong)]",
   destructive: "bg-red-600 text-white hover:bg-red-700",
 };
 

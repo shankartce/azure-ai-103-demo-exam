@@ -14,8 +14,8 @@ export default function SubmitModal({
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-6">
-      <div className="w-full max-w-md rounded-3xl bg-[var(--surface)] p-6 shadow-[var(--shadow)]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-6">
+      <div className="w-full max-w-md rounded-3xl border border-[var(--border)] bg-[var(--surface)] p-6 shadow-[var(--shadow)]">
         <h2 className="text-xl font-semibold">Submit your attempt?</h2>
         <p className="mt-2 text-sm text-[var(--muted)]">
           Make sure you have reviewed all questions. You will see your score right after

@@ -9,7 +9,10 @@ from src.api.router import router as api_router
 from src.core.errors import error_envelope
 from src.core.logging import configure_logging
 from src.core.settings import get_settings
+from sqlalchemy.orm import Session
+
 from src.db.base import Base
+from src.db.seed_demo import seed_demo
 from src.db.session import get_engine
 import src.models  # noqa: F401
 
@@ -57,7 +60,11 @@ def create_app() -> FastAPI:
     if settings.auto_create_tables:
         @app.on_event("startup")
         def ensure_tables() -> None:
-            Base.metadata.create_all(bind=get_engine())
+            engine = get_engine()
+            Base.metadata.create_all(bind=engine)
+            if settings.auto_seed_demo:
+                with Session(engine) as session:
+                    seed_demo(session)
 
     return app
 

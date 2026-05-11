@@ -20,9 +20,9 @@ def seed_demo(db: Session) -> None:
         return
 
     exam = Exam(
-        title="AI-103 Practice",
-        description="Timed practice assessment for Azure AI",
-        duration_seconds=3600,
+        title="Microsoft Certified: Azure AI Apps and Agents Developer Associate (beta)",
+        description="Timed practice assessment aligned with AI-103 objectives.",
+        duration_seconds=6000,
         is_published=True,
     )
     db.add(exam)

@@ -3,11 +3,11 @@ export default function ProgressBar({ completed, total }: { completed: number; t
 
   return (
     <div>
-      <div className="mb-2 flex items-center justify-between text-xs uppercase tracking-[0.3em] text-[var(--muted)]">
+      <div className="mb-2 flex items-center justify-between text-xs uppercase tracking-[0.3em] text-[var(--text-soft)]">
         <span>Progress</span>
         <span>{percent}%</span>
       </div>
-      <div className="h-3 rounded-full bg-[var(--surface-strong)]">
+      <div className="h-3 rounded-full bg-[var(--surface-muted)]">
         <div
           className="h-3 rounded-full bg-[var(--accent)] transition-all"
           style={{ width: `${percent}%` }}

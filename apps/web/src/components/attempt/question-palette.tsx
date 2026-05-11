@@ -22,9 +22,11 @@ export default function QuestionPalette({
           key={item.id}
           type="button"
           className={cn(
-            "h-10 rounded-xl text-sm font-semibold transition",
+            "h-10 rounded-xl border text-sm font-semibold transition",
             item.isCurrent && "ring-2 ring-[var(--accent)]",
-            item.hasAnswer ? "bg-[var(--accent)] text-white" : "bg-[var(--surface)]",
+            item.hasAnswer
+              ? "border-[var(--accent)] bg-[var(--accent)] text-white"
+              : "border-[var(--border)] bg-[var(--surface)] text-[var(--text-strong)]",
             item.isMarked && "border-2 border-[var(--accent-strong)]"
           )}
           onClick={() => onSelect(item.id)}

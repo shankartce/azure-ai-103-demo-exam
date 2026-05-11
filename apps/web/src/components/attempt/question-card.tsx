@@ -10,7 +10,7 @@ export default function QuestionCard({
   return (
     <Card>
       <CardHeader>
-        <p className="text-xs uppercase tracking-[0.3em] text-[var(--muted)]">
+        <p className="text-xs uppercase tracking-[0.3em] text-[var(--text-soft)]">
           Question {index}
         </p>
         <CardTitle>{prompt}</CardTitle>
