@@ -20,7 +20,7 @@ def signup(
     settings: Settings = Depends(get_settings),
 ):
     service = AuthService(db, settings)
-    user, token = service.signup(email=payload.email, password=payload.password)
+    user, token = service.signup(name=payload.name, email=payload.email, password=payload.password)
     
     response.set_cookie(
         key=SESSION_COOKIE_NAME,

@@ -36,7 +36,9 @@ export default function DashboardPage() {
             <p className="text-sm uppercase tracking-[0.3em] text-[var(--muted)]">
               Welcome Back
             </p>
-            <h1 className="mt-2 text-4xl font-bold">Hello! 👋</h1>
+            <h1 className="mt-2 text-4xl font-bold">
+              Hello, {user?.name || user?.email?.split('@')[0]}! 👋
+            </h1>
             <p className="mt-2 text-lg text-[var(--muted)]">{user?.email}</p>
             <p className="mt-4 text-[var(--muted)]">
               Ready to practice for your Azure AI-103 certification? Choose an exam below to get started.

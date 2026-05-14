@@ -12,13 +12,14 @@ import { ApiClientError } from "../../../lib/api-client";
 export default function SignupPage() {
   const router = useRouter();
   const signup = useSignup();
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      await signup.mutateAsync({ email, password });
+      await signup.mutateAsync({ name, email, password });
       // Small delay to ensure session is set
       setTimeout(() => {
         router.push("/dashboard");
@@ -38,10 +39,21 @@ export default function SignupPage() {
       <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle>Create your learner profile</CardTitle>
-          <CardDescription>Get instant feedback on every attempt.</CardDescription>
+          <CardDescription>Start your Azure AI-103 certification journey</CardDescription>
         </CardHeader>
         <CardContent>
           <form className="space-y-4" onSubmit={onSubmit}>
+            <label className="grid gap-2 text-sm font-medium">
+              Name
+              <input
+                type="text"
+                value={name}
+                onChange={(event) => setName(event.target.value)}
+                className="h-11 rounded-xl border border-[var(--border)] bg-[var(--input-bg)] px-4 text-sm text-[var(--text-strong)] shadow-sm focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
+                placeholder="Your full name"
+                required
+              />
+            </label>
             <label className="grid gap-2 text-sm font-medium">
               Email
               <input
@@ -62,6 +74,7 @@ export default function SignupPage() {
                 className="h-11 rounded-xl border border-[var(--border)] bg-[var(--input-bg)] px-4 text-sm text-[var(--text-strong)] shadow-sm focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
                 placeholder="Create a password"
                 required
+                minLength={8}
               />
             </label>
             <Button type="submit" className="w-full" disabled={signup.isPending}>

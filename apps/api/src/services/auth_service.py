@@ -17,12 +17,12 @@ class AuthService:
         self.settings = settings
         self.users = UserRepository(db)
 
-    def signup(self, *, email: str, password: str):
+    def signup(self, *, name: str, email: str, password: str):
         normalized = email.strip().lower()
         if self.users.get_by_email(normalized):
             raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Email already registered")
 
-        user = self.users.create(email=normalized, password_hash=hash_password(password))
+        user = self.users.create(email=normalized, name=name.strip(), password_hash=hash_password(password))
         
         token = encode_jwt(
             secret=self.settings.jwt_secret,

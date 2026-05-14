@@ -3,6 +3,7 @@ import { ApiClientError, apiRequest } from "./api-client";
 export type SessionUser = {
   id: string;
   email: string;
+  name: string;
   isAdmin: boolean;
 };
 

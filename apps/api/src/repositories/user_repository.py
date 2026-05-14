@@ -20,8 +20,8 @@ class UserRepository:
         stmt = select(User).where(User.id == user_id)
         return self.db.scalar(stmt)
 
-    def create(self, *, email: str, password_hash: str, is_admin: bool = False) -> User:
-        user = User(email=email, password_hash=password_hash, is_admin=is_admin)
+    def create(self, *, email: str, name: str = "", password_hash: str, is_admin: bool = False) -> User:
+        user = User(email=email, name=name, password_hash=password_hash, is_admin=is_admin)
         self.db.add(user)
         self.db.commit()
         self.db.refresh(user)

@@ -10,6 +10,7 @@ class ApiModel(BaseModel):
 
 
 class SignupRequest(ApiModel):
+    name: str
     email: EmailStr
     password: str
 
@@ -22,6 +23,7 @@ class LoginRequest(ApiModel):
 class UserOut(ApiModel):
     id: UUID
     email: EmailStr
+    name: str
     is_admin: bool = Field(alias="isAdmin")
 
 

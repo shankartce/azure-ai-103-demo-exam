@@ -4,6 +4,7 @@ import { apiJson } from "./api-client";
 import { getSession } from "./auth";
 
 export type AuthPayload = {
+  name?: string;
   email: string;
   password: string;
 };
@@ -12,6 +13,7 @@ type AuthResponse = {
   user: {
     id: string;
     email: string;
+    name: string;
     isAdmin: boolean;
   };
 };
