@@ -6,7 +6,7 @@ from pydantic import BaseModel, ConfigDict, EmailStr, Field
 
 
 class ApiModel(BaseModel):
-    model_config = ConfigDict(populate_by_name=True, from_attributes=True)
+    model_config = ConfigDict(populate_by_name=True, from_attributes=True, serialize_by_alias=True)
 
 
 class SignupRequest(ApiModel):

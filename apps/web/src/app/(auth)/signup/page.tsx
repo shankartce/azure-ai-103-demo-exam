@@ -19,7 +19,7 @@ export default function SignupPage() {
     event.preventDefault();
     try {
       await signup.mutateAsync({ email, password });
-      router.push("/login");
+      router.push("/dashboard");
     } catch {
       // Error state is surfaced via the mutation status.
     }

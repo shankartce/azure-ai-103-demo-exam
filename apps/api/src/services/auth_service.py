@@ -22,7 +22,15 @@ class AuthService:
         if self.users.get_by_email(normalized):
             raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Email already registered")
 
-        return self.users.create(email=normalized, password_hash=hash_password(password))
+        user = self.users.create(email=normalized, password_hash=hash_password(password))
+        
+        token = encode_jwt(
+            secret=self.settings.jwt_secret,
+            subject=str(user.id),
+            expires_in_seconds=SESSION_TTL_SECONDS,
+            claims={"is_admin": user.is_admin},
+        )
+        return user, token
 
     def login(self, *, email: str, password: str):
         normalized = email.strip().lower()

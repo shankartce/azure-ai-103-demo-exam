@@ -13,9 +13,23 @@ router = APIRouter(prefix="/auth", tags=["auth"])
 
 
 @router.post("/signup", status_code=status.HTTP_201_CREATED, response_model=UserResponse)
-def signup(payload: SignupRequest, db: Session = Depends(get_db), settings: Settings = Depends(get_settings)):
+def signup(
+    payload: SignupRequest,
+    response: Response,
+    db: Session = Depends(get_db),
+    settings: Settings = Depends(get_settings),
+):
     service = AuthService(db, settings)
-    user = service.signup(email=payload.email, password=payload.password)
+    user, token = service.signup(email=payload.email, password=payload.password)
+    
+    response.set_cookie(
+        key=SESSION_COOKIE_NAME,
+        value=token,
+        httponly=True,
+        samesite="lax",
+        max_age=SESSION_TTL_SECONDS,
+        path="/",
+    )
     return UserResponse(user=user)
 
 
@@ -49,3 +63,9 @@ def me(
     service = AuthService(db, settings)
     user = service.get_user(current_user.user_id)
     return UserResponse(user=user)
+
+
+@router.post("/logout", status_code=status.HTTP_204_NO_CONTENT)
+def logout(response: Response):
+    response.delete_cookie(key=SESSION_COOKIE_NAME, path="/")
+    return None

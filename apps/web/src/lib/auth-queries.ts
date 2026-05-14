@@ -33,7 +33,10 @@ export function useLogin() {
 }
 
 export function useSignup() {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: (payload: AuthPayload) => apiJson<AuthResponse>("/auth/signup", payload),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["session"] }),
   });
 }
