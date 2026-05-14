@@ -6,39 +6,100 @@ import RouteGuard from "../../components/route-guard";
 import { Button } from "../../components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../components/ui/card";
 import { useSession } from "../../lib/auth-queries";
+import { useExams } from "../../lib/exam-queries";
 
 export default function DashboardPage() {
   const router = useRouter();
-  const { data } = useSession();
+  const { data: user } = useSession();
+  const { data: examsData, isLoading: examsLoading } = useExams();
+
+  const getExamIcon = (title: string) => {
+    if (title.includes("Fundamentals")) return "📚";
+    if (title.includes("OpenAI")) return "🤖";
+    if (title.includes("Vision") || title.includes("Document")) return "👁️";
+    if (title.includes("Full")) return "🎯";
+    return "📝";
+  };
+
+  const getExamDifficulty = (title: string) => {
+    if (title.includes("Fundamentals")) return "Beginner";
+    if (title.includes("Full")) return "Advanced";
+    return "Intermediate";
+  };
 
   return (
     <RouteGuard>
       <div className="min-h-screen px-6 py-12">
         <div className="mx-auto flex w-full max-w-6xl flex-col gap-8">
-          <header>
+          {/* Welcome Header */}
+          <header className="rounded-2xl bg-gradient-to-r from-blue-50 to-purple-50 p-8 dark:from-blue-950/20 dark:to-purple-950/20">
             <p className="text-sm uppercase tracking-[0.3em] text-[var(--muted)]">
-              Your Practice Hub
+              Welcome Back
             </p>
-            <h1 className="mt-2 text-4xl font-bold">Welcome back! 👋</h1>
-            <p className="mt-2 text-lg text-[var(--muted)]">{data?.email}</p>
+            <h1 className="mt-2 text-4xl font-bold">Hello! 👋</h1>
+            <p className="mt-2 text-lg text-[var(--muted)]">{user?.email}</p>
+            <p className="mt-4 text-[var(--muted)]">
+              Ready to practice for your Azure AI-103 certification? Choose an exam below to get started.
+            </p>
           </header>
 
-          <div className="grid gap-6 md:grid-cols-3">
-            <Card className="border-2 border-[var(--accent)] bg-gradient-to-br from-[var(--surface)] to-[var(--page-bg)]">
-              <CardHeader>
-                <div className="mb-2 text-4xl">🎯</div>
-                <CardTitle>Start Practicing</CardTitle>
-                <CardDescription>
-                  Choose from multiple practice exams tailored to different AI-103 topics
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Button onClick={() => router.push("/exams")} className="w-full">
-                  Browse Exams
-                </Button>
-              </CardContent>
-            </Card>
+          {/* Available Exams Section */}
+          <div>
+            <div className="mb-6 flex items-center justify-between">
+              <div>
+                <h2 className="text-2xl font-semibold">Available Practice Exams</h2>
+                <p className="mt-1 text-sm text-[var(--muted)]">
+                  Choose a practice exam to test your knowledge
+                </p>
+              </div>
+              <Button variant="secondary" onClick={() => router.push("/exams")}>
+                View All Exams
+              </Button>
+            </div>
 
+            {examsLoading && (
+              <div className="flex items-center justify-center py-12">
+                <p className="text-sm text-[var(--muted)]">Loading exams...</p>
+              </div>
+            )}
+
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-2">
+              {examsData?.items.slice(0, 4).map((exam) => (
+                <Card key={exam.id} className="flex h-full flex-col transition-all hover:shadow-lg">
+                  <CardHeader>
+                    <div className="mb-2 flex items-start justify-between">
+                      <span className="text-4xl">{getExamIcon(exam.title)}</span>
+                      <span className="rounded-full bg-[var(--surface)] px-3 py-1 text-xs font-medium text-[var(--text-soft)]">
+                        {getExamDifficulty(exam.title)}
+                      </span>
+                    </div>
+                    <CardTitle className="text-lg">{exam.title}</CardTitle>
+                    <CardDescription className="line-clamp-2">
+                      {exam.description ?? "Timed practice exam"}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="mt-auto flex flex-col gap-4">
+                    <div className="flex flex-wrap gap-4 rounded-lg bg-[var(--surface)] p-3 text-sm">
+                      <div className="flex items-center gap-2">
+                        <span className="text-[var(--muted)]">⏱️</span>
+                        <span className="font-medium">{Math.round(exam.durationSeconds / 60)} min</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-[var(--muted)]">❓</span>
+                        <span className="font-medium">{exam.questionCount} questions</span>
+                      </div>
+                    </div>
+                    <Button onClick={() => router.push(`/exams/${exam.id}`)} className="w-full">
+                      Start Exam →
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+
+          {/* Quick Actions */}
+          <div className="grid gap-6 md:grid-cols-3">
             <Card>
               <CardHeader>
                 <div className="mb-2 text-4xl">📊</div>
@@ -72,63 +133,28 @@ export default function DashboardPage() {
                 </Button>
               </CardContent>
             </Card>
+
+            <Card>
+              <CardHeader>
+                <div className="mb-2 text-4xl">🎯</div>
+                <CardTitle>Exam Details</CardTitle>
+                <CardDescription>
+                  Review the official exam requirements and format
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Button
+                  variant="secondary"
+                  onClick={() => window.open("https://learn.microsoft.com/en-us/credentials/certifications/exams/ai-103/", "_blank")}
+                  className="w-full"
+                >
+                  View Details
+                </Button>
+              </CardContent>
+            </Card>
           </div>
 
-          <Card className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/20 dark:to-purple-950/20">
-            <CardHeader>
-              <CardTitle>About Azure AI-103 Certification</CardTitle>
-              <CardDescription>
-                Microsoft Certified: Azure AI Apps and Agents Developer Associate
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <p className="text-sm text-[var(--muted)]">
-                This certification validates your ability to design, build, and deploy AI solutions using Azure AI services. You&apos;ll demonstrate skills in:
-              </p>
-              <div className="grid gap-3 sm:grid-cols-2">
-                <div className="flex items-start gap-3 rounded-lg bg-white/50 p-3 dark:bg-black/20">
-                  <span className="text-xl">🤖</span>
-                  <div>
-                    <div className="font-medium">Generative AI Solutions</div>
-                    <div className="text-xs text-[var(--muted)]">Azure OpenAI, prompt engineering, RAG</div>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3 rounded-lg bg-white/50 p-3 dark:bg-black/20">
-                  <span className="text-xl">👁️</span>
-                  <div>
-                    <div className="font-medium">Computer Vision</div>
-                    <div className="text-xs text-[var(--muted)]">Image analysis, OCR, Custom Vision</div>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3 rounded-lg bg-white/50 p-3 dark:bg-black/20">
-                  <span className="text-xl">💬</span>
-                  <div>
-                    <div className="font-medium">Natural Language Processing</div>
-                    <div className="text-xs text-[var(--muted)]">Text analysis, translation, sentiment</div>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3 rounded-lg bg-white/50 p-3 dark:bg-black/20">
-                  <span className="text-xl">📄</span>
-                  <div>
-                    <div className="font-medium">Document Intelligence</div>
-                    <div className="text-xs text-[var(--muted)]">Form processing, data extraction</div>
-                  </div>
-                </div>
-              </div>
-              <div className="flex flex-wrap gap-4 pt-4">
-                <Button onClick={() => router.push("/exams")}>
-                  Start Your First Practice Exam
-                </Button>
-                <Button
-                  variant="outline"
-                  onClick={() => window.open("https://learn.microsoft.com/en-us/credentials/certifications/exams/ai-103/", "_blank")}
-                >
-                  View Exam Details
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-
+          {/* Tips Section */}
           <div className="grid gap-6 md:grid-cols-2">
             <Card>
               <CardHeader>

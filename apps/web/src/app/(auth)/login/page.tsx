@@ -19,7 +19,10 @@ export default function LoginPage() {
     event.preventDefault();
     try {
       await login.mutateAsync({ email, password });
-      router.push("/dashboard");
+      // Small delay to ensure session is set
+      setTimeout(() => {
+        router.push("/dashboard");
+      }, 100);
     } catch {
       // Error state is surfaced via the mutation status.
     }
