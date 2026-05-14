@@ -23,7 +23,7 @@ class LoginRequest(ApiModel):
 class UserOut(ApiModel):
     id: UUID
     email: EmailStr
-    name: str
+    name: str | None = None
     is_admin: bool = Field(alias="isAdmin")
 
 
