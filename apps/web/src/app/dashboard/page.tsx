@@ -83,7 +83,7 @@ export default function DashboardPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               <p className="text-sm text-[var(--muted)]">
-                This certification validates your ability to design, build, and deploy AI solutions using Azure AI services. You'll demonstrate skills in:
+                This certification validates your ability to design, build, and deploy AI solutions using Azure AI services. You&apos;ll demonstrate skills in:
               </p>
               <div className="grid gap-3 sm:grid-cols-2">
                 <div className="flex items-start gap-3 rounded-lg bg-white/50 p-3 dark:bg-black/20">
